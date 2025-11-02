@@ -2,10 +2,13 @@
 // load the things we need
 var mongoose = require("mongoose");
 // define the schema for our user model
-mongoose.connect(require("../../config/app").db.connectionUri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
+// Only connect if not already connected
+if (mongoose.connection.readyState === 0) {
+  mongoose.connect(require("../../config/app").db.connectionUri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+}
 var analyticsSchema = mongoose.Schema({
   name: String, // "2019-01-01"
   stats: Array // {time:new Date(), visitor: 120}

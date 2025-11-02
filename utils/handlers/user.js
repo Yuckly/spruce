@@ -5,10 +5,13 @@ var bcrypt = require("bcrypt-nodejs");
 const a = require("array-tools");
 const _ = require("lodash/_arrayIncludes");
 
-mongoose.connect(require("../../config/app").db.connectionUri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
+// Only connect if not already connected
+if (mongoose.connection.readyState === 0) {
+  mongoose.connect(require("../../config/app").db.connectionUri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+}
 
 function checkSpace(name) {
   var charSplit = name.split("");

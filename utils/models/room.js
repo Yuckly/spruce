@@ -3,10 +3,13 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcrypt-nodejs");
 // define the schema for our user model
-mongoose.connect(require("../../config/app").db.connectionUri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
+// Only connect if not already connected
+if (mongoose.connection.readyState === 0) {
+  mongoose.connect(require("../../config/app").db.connectionUri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+}
 
 var chatSchema = mongoose.Schema({
   id: String, // "12ojahsdbi2qwbdoihabfqyyegr8uyadf823798w791" Combined _id of users
